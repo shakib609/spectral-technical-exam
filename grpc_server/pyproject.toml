@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "grpc-server"
+version = "0.0.1"
+description = "grpc server"
+authors = ["Shakib Hossain <3992124+shakib609@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+grpcio = "^1.62.2"
+grpcio-tools = "^1.62.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
