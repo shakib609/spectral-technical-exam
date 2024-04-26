@@ -10,3 +10,14 @@ services:
       - PORT=50051
     ports:
       - "50051:50051"
+
+  grpc_client_http:
+    container_name: grpc_client_http
+    build:
+      context: .
+      dockerfile: ./grpc_client_http/Dockerfile
+    environment:
+      - GRPC_SERVER_HOST=grpc_server
+      - GRPC_SERVER_PORT=50051
+    ports:
+      - "8000:8000"

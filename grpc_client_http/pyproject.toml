@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "grpc-client-http"
+version = "0.0.1"
+description = "grpc client"
+authors = ["Shakib Hossain <3992124+shakib609@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.2"
+uvicorn = {extras = ["standard"], version = "^0.29.0"}
+pydantic-settings = "^2.2.1"
+grpcio = "^1.62.2"
+grpcio-tools = "^1.62.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
