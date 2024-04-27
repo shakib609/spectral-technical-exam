@@ -16,17 +16,16 @@ app.add_middleware(
 )
 app.add_middleware(GZipMiddleware)
 
+grpc_channel = grpc.insecure_channel(
+    f"{settings.GRPC_SERVER_HOST}:{settings.GRPC_SERVER_PORT}"
+)
+
 
 @app.get("/api/v1/meterusage/")
-def get_meterusage_data():
-    grpc_channel = grpc.insecure_channel(
-        f"{settings.GRPC_SERVER_HOST}:{settings.GRPC_SERVER_PORT}"
-    )
+def get_meterusage_data(page_number: int = 1, page_size: int = 100):
     stub = MeterUsageStub(grpc_channel)
-
-    grpc_request = MeterUsageRequest()
+    grpc_request = MeterUsageRequest(page_number=page_number, page_size=page_size)
     grpc_response = stub.GetMeterUsage(grpc_request)
 
-    response_dict = MessageToDict(grpc_response)
-    response_data = response_dict.get("data")
+    response_data = MessageToDict(grpc_response)
     return response_data

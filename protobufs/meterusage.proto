@@ -8,10 +8,15 @@ service MeterUsage {
 }
 
 message MeterUsageRequest {
+    int32 page_number = 1;
+    int32 page_size = 2;
 }
 
 message MeterUsageResponse {
     repeated MeterUsageData data = 1;
+    int32 page_number = 2;
+    int32 page_size = 3;
+    int32 total_pages = 4;
 }
 
 message MeterUsageData {

@@ -1,28 +1,26 @@
-import csv
-
-from meterusage_pb2 import MeterUsageData, MeterUsageResponse
+from database import Database
+from meterusage_pb2 import MeterUsageRequest, MeterUsageResponse
 from meterusage_pb2_grpc import MeterUsageServicer
-from utils import convert_string_to_timestamp
 
 METERUSAGE_CSV_FILE = "meterusage.csv"
 
 
-def get_meter_usage_data_from_csv_file(path=METERUSAGE_CSV_FILE):
-    """Reads meter usage data from `path` csv file and returns the data"""
-    with open(path) as csv_file:
-        response_data = MeterUsageResponse()
-        reader = csv.DictReader(csv_file)
-        for row in reader:
-            meter_data = MeterUsageData(
-                time=convert_string_to_timestamp(row["time"]),
-                meterusage=float(row["meterusage"]),
-            )
-            response_data.data.append(meter_data)
-        return response_data
-
-
 class MeterUsageService(MeterUsageServicer):
-    def GetMeterUsage(self, request, context) -> MeterUsageResponse:
+
+    def __init__(self):
+        super().__init__()
+        self.database = Database()
+        self.database.load_data_from_csv_file(METERUSAGE_CSV_FILE)
+
+    def GetMeterUsage(self, request: MeterUsageRequest, context) -> MeterUsageResponse:
         """Get meter usage data and return as MeterUsageResponse"""
-        response_data = get_meter_usage_data_from_csv_file(METERUSAGE_CSV_FILE)
+        paginated_data = self.database.get_paginated_data(
+            request.page_number, request.page_size
+        )
+        response_data = MeterUsageResponse(
+            data=paginated_data["data"],
+            page_number=request.page_number,
+            page_size=request.page_size,
+            total_pages=paginated_data["total_pages"],
+        )
         return response_data

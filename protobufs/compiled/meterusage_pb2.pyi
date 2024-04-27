@@ -7,14 +7,24 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class MeterUsageRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("page_number", "page_size")
+    PAGE_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    PAGE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    page_number: int
+    page_size: int
+    def __init__(self, page_number: _Optional[int] = ..., page_size: _Optional[int] = ...) -> None: ...
 
 class MeterUsageResponse(_message.Message):
-    __slots__ = ("data",)
+    __slots__ = ("data", "page_number", "page_size", "total_pages")
     DATA_FIELD_NUMBER: _ClassVar[int]
+    PAGE_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    PAGE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    TOTAL_PAGES_FIELD_NUMBER: _ClassVar[int]
     data: _containers.RepeatedCompositeFieldContainer[MeterUsageData]
-    def __init__(self, data: _Optional[_Iterable[_Union[MeterUsageData, _Mapping]]] = ...) -> None: ...
+    page_number: int
+    page_size: int
+    total_pages: int
+    def __init__(self, data: _Optional[_Iterable[_Union[MeterUsageData, _Mapping]]] = ..., page_number: _Optional[int] = ..., page_size: _Optional[int] = ..., total_pages: _Optional[int] = ...) -> None: ...
 
 class MeterUsageData(_message.Message):
     __slots__ = ("time", "meterusage")
