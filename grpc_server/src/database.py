@@ -29,7 +29,9 @@ class Database:
     ) -> dict[str, Any]:
         start_index = (page_number - 1) * page_size
         end_index = start_index + page_size
-        total_pages = (len(self.data) // page_size) + 1
+        total_pages, rem = divmod(len(self.data), page_size)
+        if rem > 0:
+            total_pages += 1
         return {
             "data": self.data[start_index:end_index],
             "total_pages": total_pages,
