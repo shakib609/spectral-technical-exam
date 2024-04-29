@@ -18,7 +18,14 @@ app.add_middleware(
 app.add_middleware(GZipMiddleware)
 
 grpc_channel = grpc.insecure_channel(
-    f"{settings.GRPC_SERVER_HOST}:{settings.GRPC_SERVER_PORT}"
+    f"{settings.GRPC_SERVER_HOST}:{settings.GRPC_SERVER_PORT}",
+    options=[
+        ('grpc.keepalive_time_ms', 10000),  # Send keepalive ping every 10 seconds
+        ('grpc.keepalive_timeout_ms', 5000),  # Timeout for keepalive ping is 5 seconds
+        ('grpc.keepalive_permit_without_calls', True),  # Allow keepalive pings without calls
+        ('grpc.http2.max_pings_without_data', 0),  # Allow unlimited keepalive pings without data
+        ('grpc.http2.min_time_between_pings_ms', 10000),  # Minimum time between pings is 10 seconds
+    ],
 )
 
 
