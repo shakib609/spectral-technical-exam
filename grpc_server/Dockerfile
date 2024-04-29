@@ -10,7 +10,7 @@ COPY grpc_server/poetry.lock grpc_server/pyproject.toml /app/
 RUN poetry install
 
 COPY grpc_server/src/ /app/src/
-COPY grpc_server/meterusage.csv /app
+COPY ./meterusage.csv /app
 
 COPY protobufs/ /app/protobufs/
 RUN python -m grpc_tools.protoc -I /app/protobufs/ --python_out=/app/src/ \
