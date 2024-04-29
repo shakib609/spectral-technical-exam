@@ -26,6 +26,7 @@ grpc_channel = grpc.insecure_channel(
         ('grpc.http2.max_pings_without_data', 0),  # Allow unlimited keepalive pings without data
         ('grpc.http2.min_time_between_pings_ms', 10000),  # Minimum time between pings is 10 seconds
     ],
+    compression=grpc.Compression.Gzip,
 )
 
 
