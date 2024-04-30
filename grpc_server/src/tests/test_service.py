@@ -22,7 +22,7 @@ def test_MeterUsageService_GetMeterUsage_with_empty_database(mock_db):
     assert response.page_number == page_number
     assert response.page_size == page_size
     assert response.total_pages == 1
-    assert response.data == []
+    assert len(response.data) == 0
 
 
 @patch("service.Database")

@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 grpcio = "^1.62.2"
 grpcio-tools = "^1.62.2"
+pytest = "^8.2.0"
 
 
 [build-system]

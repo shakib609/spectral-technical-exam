@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spectral Technical Exam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="p-6">
+    <h1 class="text-center text-3xl font-bold underline">Meter Usage</h1>
+
+    <table class="w-full mt-6">
+        <thead>
+            <tr>
+                <th class="border font-bold p-2">Time</th>
+                <th class="border font-bold p-2">Usage</th>
+            </tr>
+        </thead>
+        <tbody id="data-container">
+        </tbody>
+    </table>
+
+    <div class="flex justify-center mt-5">
+        <button type="button" id="load-more"
+            class="bg-blue-500 hover:bg-blue-700 disabled:opacity-50 text-white font-bold py-2 px-4 rounded">
+            Load More
+        </button>
+    </div>
+
+</body>
+
+<script>
+    const dataContainer = document.getElementById('data-container');
+    const loadMoreButton = document.getElementById('load-more');
+
+    const loadMeterUsageData = async (pageNumber, pageSize) => {
+        const response = await fetch(`http://localhost:8080/api/v1/meterusage/?page_number=${pageNumber}&page_size=${pageSize}`);
+        const responseJson = response.json()
+        return responseJson
+    }
+
+    const formatTime = (time) => {
+        const date = new Date(time);
+        return date.toLocaleString();
+    }
+
+    const renderMeterUsageData = (data) => {
+        data.forEach(({ time, meterusage }) => {
+            const meterUsageElement = document.createElement('tr');
+            meterUsageElement.innerHTML = `
+                <td class="border p-2">${formatTime(time)}</td>
+                <td class="border p-2">${meterusage}</td>
+            `;
+            dataContainer.appendChild(meterUsageElement);
+        });
+    }
+
+    const handleTotalPages = (totalPages, pageNumber) => {
+        if (totalPages === pageNumber) {
+            loadMoreButton.setAttribute('disabled', true);
+        }
+    }
+
+
+    (async function () {
+        let pageNumber = 1;
+        let pageSize = 300;
+
+        const initialData = await loadMeterUsageData(pageNumber, pageSize);
+        renderMeterUsageData(initialData.data);
+        handleTotalPages(initialData.totalPages, pageNumber);
+
+        loadMoreButton.addEventListener('click', async () => {
+            pageNumber++;
+            const { data, totalPages } = await loadMeterUsageData(pageNumber, pageSize);
+            renderMeterUsageData(data);
+            handleTotalPages(totalPages, pageNumber);
+        });
+    })();
+
+</script>
+
+</html>

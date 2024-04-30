@@ -20,4 +20,4 @@ services:
       - GRPC_SERVER_HOST=grpc_server
       - GRPC_SERVER_PORT=50051
     ports:
-      - "8000:8000"
+      - "8080:8080"
