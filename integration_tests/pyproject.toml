@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "integration-tests"
+version = "0.0.1"
+description = "integration tests for the grpc-fastapi project"
+authors = ["Shakib Hossain <3992124+shakib609@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.27.0"
+pytest = "^8.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

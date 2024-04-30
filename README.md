@@ -23,6 +23,7 @@ The HTML page which communicates with the FastAPI server resides on the `ui` dir
 ### Pre-requisites
 - docker
 - docker-compose
+- poetry
 
 ### Running the Server
 
@@ -47,3 +48,13 @@ To run the unit-tests for the servers, first build the images using `docker comp
 Then the unit-tests can be run for the servers with the below commands respectively.
 - grpc_server - `docker compose run grpc_server pytest`
 - grpc_client_http - `docker compose run grpc_client_http pytest` 
+
+
+### Running Integration Tests
+
+To run the integration-tests for the servers run the below commands
+
+- build the docker images - `docker compose build`
+- change into the `integration_tests` directory - `cd integration_tests`
+- Install dependencies - `poetry test`
+- Run tests - `poetry run pytest`
