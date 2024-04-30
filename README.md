@@ -56,5 +56,5 @@ To run the integration-tests for the servers run the below commands
 
 - build the docker images - `docker compose build`
 - change into the `integration_tests` directory - `cd integration_tests`
-- Install dependencies - `poetry test`
+- Install dependencies - `poetry install`
 - Run tests - `poetry run pytest`
