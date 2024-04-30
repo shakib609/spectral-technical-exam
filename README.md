@@ -17,13 +17,14 @@ The FastAPI Server resides on the `grpc_client_http` directory. The server expos
 
 ## HTML Page
 
-The HTML page which communicates with the FastAPI server resides on the `ui` directory. This file can be opened directly after starting the servers.
-
+The HTML page which communicates with the FastAPI server resides on the `ui` directory. The `index.html` file can be opened directly after starting the servers. The page is designed to fetch the data asynchronously. It fetches 100 items per page.
 
 ### Pre-requisites
+
 - docker
 - docker-compose
-- poetry
+- python 3.11 (For integration tests)
+- poetry (For integration tests)
 
 ### Running the Server
 
